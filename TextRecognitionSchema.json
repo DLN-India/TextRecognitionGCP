@@ -1,0 +1,297 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome",
+    "definitions": {
+        "Welcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "inputConfig": {
+                    "$ref": "#/definitions/InputConfig"
+                },
+                "responses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Response"
+                    }
+                }
+            },
+            "required": [
+                "inputConfig",
+                "responses"
+            ],
+            "title": "Welcome"
+        },
+        "InputConfig": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "gcsSource": {
+                    "$ref": "#/definitions/GcsSource"
+                },
+                "mimeType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "gcsSource",
+                "mimeType"
+            ],
+            "title": "InputConfig"
+        },
+        "GcsSource": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "uri": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "uri"
+            ],
+            "title": "GcsSource"
+        },
+        "Response": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "fullTextAnnotation": {
+                    "$ref": "#/definitions/FullTextAnnotation"
+                },
+                "context": {
+                    "$ref": "#/definitions/Context"
+                }
+            },
+            "required": [
+                "context",
+                "fullTextAnnotation"
+            ],
+            "title": "Response"
+        },
+        "Context": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "uri": {
+                    "type": "string"
+                },
+                "pageNumber": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "pageNumber",
+                "uri"
+            ],
+            "title": "Context"
+        },
+        "FullTextAnnotation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "pages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Page"
+                    }
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pages",
+                "text"
+            ],
+            "title": "FullTextAnnotation"
+        },
+        "Page": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "width": {
+                    "type": "integer"
+                },
+                "height": {
+                    "type": "integer"
+                },
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Block"
+                    }
+                },
+                "confidence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "blocks",
+                "confidence",
+                "height",
+                "width"
+            ],
+            "title": "Page"
+        },
+        "Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "boundingBox": {
+                    "$ref": "#/definitions/BoundingBox"
+                },
+                "paragraphs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Paragraph"
+                    }
+                },
+                "blockType": {
+                    "type": "string"
+                },
+                "confidence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "blockType",
+                "boundingBox",
+                "confidence",
+                "paragraphs"
+            ],
+            "title": "Block"
+        },
+        "BoundingBox": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "normalizedVertices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NormalizedVertex"
+                    }
+                }
+            },
+            "required": [
+                "normalizedVertices"
+            ],
+            "title": "BoundingBox"
+        },
+        "NormalizedVertex": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "x",
+                "y"
+            ],
+            "title": "NormalizedVertex"
+        },
+        "Paragraph": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "boundingBox": {
+                    "$ref": "#/definitions/BoundingBox"
+                },
+                "words": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Word"
+                    }
+                },
+                "confidence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "boundingBox",
+                "confidence",
+                "words"
+            ],
+            "title": "Paragraph"
+        },
+        "Word": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "boundingBox": {
+                    "$ref": "#/definitions/BoundingBox"
+                },
+                "symbols": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Symbol"
+                    }
+                },
+                "confidence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "boundingBox",
+                "confidence",
+                "symbols"
+            ],
+            "title": "Word"
+        },
+        "Symbol": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "boundingBox": {
+                    "$ref": "#/definitions/BoundingBox"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "confidence": {
+                    "type": "integer"
+                },
+                "property": {
+                    "$ref": "#/definitions/Property"
+                }
+            },
+            "required": [
+                "boundingBox",
+                "confidence",
+                "text"
+            ],
+            "title": "Symbol"
+        },
+        "Property": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "detectedBreak": {
+                    "$ref": "#/definitions/DetectedBreak"
+                }
+            },
+            "required": [
+                "detectedBreak"
+            ],
+            "title": "Property"
+        },
+        "DetectedBreak": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "title": "DetectedBreak"
+        }
+    }
+}
